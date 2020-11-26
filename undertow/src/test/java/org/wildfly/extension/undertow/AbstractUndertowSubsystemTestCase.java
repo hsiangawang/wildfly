@@ -28,7 +28,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 import java.util.function.Consumer;
-
+import java.util.List;
 import javax.net.ssl.SSLContext;
 
 import io.undertow.predicate.Predicates;
@@ -70,6 +70,7 @@ import org.xnio.OptionMap;
 import org.xnio.Options;
 import org.xnio.Xnio;
 import org.xnio.XnioWorker;
+import static org.hamcrest.CoreMatchers.*;
 
 public abstract class AbstractUndertowSubsystemTestCase extends AbstractSubsystemBaseTest {
     public AbstractUndertowSubsystemTestCase() {
@@ -129,7 +130,9 @@ public abstract class AbstractUndertowSubsystemTestCase extends AbstractSubsyste
         Host host = (Host) awaitServiceValue(hostSC);
         if (flag == 1) {
             Assert.assertEquals(3, host.getAllAliases().size());
-            Assert.assertEquals("default-alias", new ArrayList<>(host.getAllAliases()).get(1));
+            List<String> aliasesList = new ArrayList<>(host.getAllAliases());
+            aliasesList.sort(String::compareToIgnoreCase);
+            Assert.assertEquals("default-alias", aliasesList.get(0));
         }
 
         final ServiceName locationServiceName = UndertowService.locationServiceName(virtualHostName, "default-virtual-host", "/");
