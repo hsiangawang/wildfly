@@ -23,12 +23,12 @@ package org.wildfly.extension.undertow;
 
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 import java.util.function.Consumer;
-import java.util.List;
 import javax.net.ssl.SSLContext;
 
 import io.undertow.predicate.Predicates;
@@ -70,7 +70,6 @@ import org.xnio.OptionMap;
 import org.xnio.Options;
 import org.xnio.Xnio;
 import org.xnio.XnioWorker;
-import static org.hamcrest.CoreMatchers.*;
 
 public abstract class AbstractUndertowSubsystemTestCase extends AbstractSubsystemBaseTest {
     public AbstractUndertowSubsystemTestCase() {
